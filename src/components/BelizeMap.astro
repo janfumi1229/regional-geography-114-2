@@ -1,0 +1,126 @@
+---
+interface Props {
+  fill?: boolean;
+}
+
+const { fill = false } = Astro.props;
+---
+
+<div
+  class:list={[
+    'belize-map-wrapper overflow-hidden rounded-xl border border-beige-200 shadow-sm',
+    fill && 'h-full',
+  ]}
+>
+  <div
+    id="belize-map"
+    class:list={[fill ? 'h-full min-h-[12rem]' : 'h-[28rem] md:h-[32rem]', 'w-full']}
+  ></div>
+</div>
+
+<script>
+  import L from 'leaflet';
+  import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
+  import 'leaflet/dist/leaflet.css';
+  import 'leaflet-geosearch/dist/geosearch.css';
+  import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
+  import markerIcon from 'leaflet/dist/images/marker-icon.png';
+  import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
+  function initMap() {
+    const container = document.getElementById('belize-map');
+    if (!container || container.dataset.initialized === 'true') return;
+    container.dataset.initialized = 'true';
+
+    // @ts-expect-error Leaflet internal
+    delete L.Icon.Default.prototype._getIconUrl;
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl: markerIcon2x.src,
+      iconUrl: markerIcon.src,
+      shadowUrl: markerShadow.src,
+    });
+
+    const map = L.map(container, {
+      center: [17.25, -88.77],
+      zoom: 8,
+      scrollWheelZoom: true,
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19,
+    }).addTo(map);
+
+    L.control
+      .scale({ imperial: false, metric: true, position: 'bottomleft' })
+      .addTo(map);
+
+    const searchControl = new GeoSearchControl({
+      provider: new OpenStreetMapProvider(),
+      style: 'bar',
+      showMarker: true,
+      showPopup: true,
+      autoClose: true,
+      retainZoomLevel: false,
+      animateZoom: true,
+      keepResult: true,
+      searchLabel: '搜尋地圖上的地點…',
+      position: 'topright',
+    });
+
+    map.addControl(searchControl);
+
+    // Ensure correct sizing after layout
+    setTimeout(() => map.invalidateSize(), 100);
+  }
+
+  initMap();
+  document.addEventListener('astro:page-load', initMap);
+</script>
+
+<style>
+  .belize-map-wrapper :global(.leaflet-control-scale-line) {
+    border-color: #6b5e4d;
+    background: rgba(255, 255, 255, 0.9);
+    color: #3f3830;
+    font-family: 'Noto Sans TC', system-ui, sans-serif;
+    font-size: 11px;
+  }
+
+  .belize-map-wrapper :global(.geosearch) {
+    font-family: 'Noto Sans TC', system-ui, sans-serif;
+  }
+
+  .belize-map-wrapper :global(.geosearch form input) {
+    border: 1px solid #e8dfd0;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    color: #3f3830;
+    min-width: 220px;
+    box-shadow: 0 1px 3px rgba(63, 56, 48, 0.08);
+  }
+
+  .belize-map-wrapper :global(.geosearch form input:focus) {
+    outline: 2px solid #d4c8b5;
+    outline-offset: 1px;
+  }
+
+  .belize-map-wrapper :global(.geosearch .results) {
+    border: 1px solid #e8dfd0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(63, 56, 48, 0.1);
+  }
+
+  .belize-map-wrapper :global(.geosearch .results > *) {
+    font-size: 0.875rem;
+    color: #564c3f;
+    border-bottom: 1px solid #f5f0e8;
+  }
+
+  .belize-map-wrapper :global(.geosearch .results > *:hover) {
+    background: #faf9f6;
+  }
+</style>

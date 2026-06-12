@@ -1,0 +1,7 @@
+node_modules
+dist
+.astro
+gullible-giant
+*.pdf
+pdf_content.txt
+extract_pdf.py

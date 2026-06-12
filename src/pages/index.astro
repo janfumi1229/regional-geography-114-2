@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BelizeMap from '../components/BelizeMap.astro';
+
+const base = import.meta.env.BASE_URL;
+const articles = [
+  {
+    href: `${base}report-1`,
+    tag: '期中報告一',
+    title: '甜蜜的代價',
+    desc: '貝里斯華人移民、糖業與殖民歷史（1865 年）',
+  },
+  {
+    href: `${base}report-2`,
+    tag: '期中報告二',
+    title: '對外援助概況',
+    desc: '貝里斯對外援助接受概況與數據分析（2020–2026）',
+  },
+  {
+    href: `${base}report-3`,
+    tag: '期末報告',
+    title: '從受援到夥伴',
+    desc: '貝里斯、牙買加與瓜地馬拉援助關係歷史演變與比較分析',
+  },
+];
+---
+
+<Layout title="當代貝里斯移民與援助發展史" description="當代貝里斯移民與援助發展史——黃仁輔（B12208012）114-2 區域地理學期成果">
+  <div class="flex h-[calc(100svh-3.5rem)] flex-col overflow-hidden px-4 py-3 md:px-6">
+    <header class="mb-3 flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center sm:gap-4 md:gap-6">
+      <h1 class="font-serif text-xl font-semibold leading-tight text-beige-900 md:text-2xl lg:text-3xl">
+        當代貝里斯移民與援助發展史
+      </h1>
+      <div class="shrink-0 font-sans text-[10px] text-beige-500 md:text-xs">
+        <p>
+          114-2 區域地理學期成果
+          <span class="mx-1.5 text-beige-300">|</span>
+          黃仁輔
+          <span class="mx-1.5 text-beige-300">|</span>
+          B12208012
+          <span class="mx-1.5 text-beige-300">|</span>
+          地理三
+        </p>
+        <p class="mt-0.5 text-[9px] text-beige-400 md:text-[10px]">指導老師：簡旭伸老師</p>
+      </div>
+    </header>
+
+    <div class="grid min-h-0 flex-1 grid-cols-1 gap-3 md:grid-cols-4 md:gap-4">
+      <div class="min-h-0 md:col-span-3">
+        <BelizeMap fill />
+      </div>
+
+      <div class="flex min-h-0 flex-col gap-2 md:col-span-1 md:gap-3">
+        {
+          articles.map((article) => (
+            <a
+              href={article.href}
+              class="group flex flex-1 flex-col justify-center rounded-lg border border-beige-200 bg-beige-50/40 px-4 py-3 transition hover:border-beige-300 hover:bg-beige-50"
+            >
+              <p class="text-[10px] tracking-widest text-beige-500 uppercase">{article.tag}</p>
+              <h2 class="mt-1 font-serif text-sm font-semibold text-beige-900 group-hover:text-beige-700 md:text-base">
+                {article.title}
+              </h2>
+              <p class="mt-1 line-clamp-2 text-[11px] leading-snug text-beige-600 md:text-xs">
+                {article.desc}
+              </p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,62 @@
+@config "../../tailwind.config.mjs";
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white font-sans text-beige-900 antialiased;
+}
+
+.prose-report h2 {
+  @apply mt-12 mb-4 font-serif text-2xl font-medium text-beige-900 first:mt-0;
+}
+
+.prose-report h3 {
+  @apply mt-8 mb-3 font-serif text-xl font-medium text-beige-800;
+}
+
+.prose-report p {
+  @apply mb-4 leading-relaxed text-beige-700;
+}
+
+.prose-report ol {
+  @apply mb-4 list-decimal space-y-2 pl-6 leading-relaxed text-beige-700;
+}
+
+.prose-report ul {
+  @apply mb-4 list-disc space-y-2 pl-6 leading-relaxed text-beige-700;
+}
+
+.prose-report .table-wrap {
+  @apply my-6 overflow-x-auto rounded-xl border border-beige-200;
+}
+
+.prose-report table {
+  @apply w-full min-w-[640px] text-left text-sm;
+}
+
+.prose-report thead tr {
+  @apply border-b border-beige-200 bg-beige-100;
+}
+
+.prose-report th {
+  @apply px-4 py-3 font-serif font-medium text-beige-800;
+}
+
+.prose-report tbody {
+  @apply divide-y divide-beige-100 font-sans text-beige-700;
+}
+
+.prose-report td {
+  @apply px-4 py-3;
+}
+
+.prose-report .table-note {
+  @apply mt-2 text-sm leading-relaxed text-beige-600;
+}
+
+.prose-report .refs li {
+  @apply mb-2 text-sm leading-relaxed text-beige-600;
+}

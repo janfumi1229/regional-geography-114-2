@@ -1,0 +1,40 @@
+---
+const base = import.meta.env.BASE_URL;
+const navItems = [
+  { href: `${base}report-1`, label: '報告一' },
+  { href: `${base}report-2`, label: '報告二' },
+  { href: `${base}report-3`, label: '期末報告' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 border-b border-beige-200 bg-white/90 backdrop-blur-md">
+  <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+    <a href={base} class="flex items-center gap-3 hover:opacity-90">
+      <img
+        src={`${base}franks-reading-note.png`}
+        alt="Frank's Reading Note"
+        class="h-9 w-9 rounded-full object-cover ring-1 ring-beige-200"
+        width="36"
+        height="36"
+      />
+      <span class="font-serif text-sm font-semibold tracking-wide text-beige-800">114-2 區域地理學期成果</span>
+    </a>
+    <ul class="flex gap-4 text-sm text-beige-600 md:gap-6">
+      {navItems.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={[
+              'transition-colors hover:text-beige-900',
+              currentPath === item.href && 'font-medium text-beige-900 underline decoration-beige-400 underline-offset-4',
+            ]}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>

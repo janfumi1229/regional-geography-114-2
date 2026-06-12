@@ -1,0 +1,240 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const aidPrograms = [
+  { name: 'Belize Compact（貝里斯協議）', donor: '美國MCC', amount: '125.0', year: '2024簽署（暫緩）', field: '教育（技職訓練80%）、再生能源（20%）；另加政府配套40.6M；2025年8月確認保留', type: 'mcc' },
+  { name: 'Climate-Resilient Housing and Infrastructure', donor: 'Adaptation Fund', amount: '23.14', year: '2022–2026', field: '氣候韌性住房、關鍵基礎設施、氣候監測', type: 'multilateral' },
+  { name: 'Belize Fund for a Sustainable Future（BFSF）', donor: '多邊/貝里斯政府', amount: '12.5', year: '2022–2026', field: '海洋經濟、生物多樣性、生態保護、海岸發展', type: 'neutral' },
+  { name: 'IDA優惠融資額度', donor: '世界銀行IDA', amount: '77.0', year: '2024取得', field: 'IDA會員資格；多領域優惠融資額度（年利率0.75%，還款期30年）', type: 'multilateral' },
+  { name: 'Belize Blue Cities and Beyond', donor: '世銀IDA+多方信託', amount: '32.2', year: '2025/1', field: '藍色經濟、城市基礎設施、水質管理、廢棄物處理（San Pedro等）', type: 'multilateral' },
+  { name: 'Energy Resilience and Sustainability Project', donor: '世銀IBRD+加拿大', amount: '58.4', year: '2025/2', field: '電力韌性、再生能源整合', type: 'multilateral' },
+  { name: 'Cat-DDO（災難遞延提款選擇權）', donor: '世界銀行IDA', amount: '20.0', year: '2025/7', field: '緊急氣候與災難備援流動性', type: 'multilateral' },
+  { name: 'Sustainable and Inclusive Urban Development', donor: 'IDB', amount: '1.06', year: '2022–2025', field: '北部市政永續發展', type: 'multilateral' },
+  { name: 'Sustainable and Inclusive Belize', donor: 'IDB', amount: '10.0', year: '2023', field: '中小企業、氣候韌性', type: 'multilateral' },
+  { name: '貝里斯促進勞動力參與及就業計畫', donor: '台灣ICDF+IDB', amount: '未公開（貸款）', year: '2020–2025', field: '就業服務、技能培訓', type: 'icdf' },
+  { name: '貝里斯國家寬頻貸款計畫', donor: '台灣ICDF', amount: '未公開（貸款）', year: '2022–2025', field: '通訊基礎設施', type: 'icdf' },
+  { name: '貝里斯醫療影像系統強化計畫', donor: '台灣ICDF', amount: '未公開', year: '2022–2025', field: '醫療設備升級、醫療體系強化', type: 'icdf' },
+  { name: '後疫情婦女賦權計畫', donor: '台灣ICDF+OAS', amount: '未公開', year: '2021–2024', field: '婦女就業、創業、金融包容', type: 'icdf' },
+  { name: 'BLUE-CAP計畫', donor: 'WTO漁業補貼基金', amount: '未公開', year: '2022–2026', field: '漁業社區、堡礁生態保護', type: 'neutral' },
+  { name: 'Plan Belize MTDS 2022–2026（支援項目）', donor: 'UNDP/UN多邊', amount: '未公開（框架）', year: '2022–2026', field: '氣候行動、自然資源管理、藍綠經濟', type: 'neutral' },
+];
+
+const rowClass = (type: string) => {
+  if (type === 'mcc') return 'bg-amber-50/80';
+  if (type === 'icdf') return 'bg-emerald-50/80';
+  if (type === 'neutral') return 'bg-beige-50/60';
+  return 'bg-white';
+};
+---
+
+<Layout title="報告二：貝里斯對外援助概況 | 114-2 區域地理學期成果">
+  <article class="mx-auto max-w-5xl px-6 py-12 md:py-16">
+    <header class="mb-10 border-l-4 border-beige-400 pl-6">
+      <p class="text-sm text-beige-500">B12208012　地理三　黃仁輔</p>
+      <p class="mt-1 text-sm tracking-widest text-beige-500 uppercase">區域地理期中報告二</p>
+      <h1 class="mt-3 font-serif text-3xl font-semibold text-beige-900 md:text-4xl">
+        貝里斯的對外援助接受概況與數據分析（2020–2026）
+      </h1>
+    </header>
+
+    <div class="prose-report">
+      <h2>一、前言：資料年份選擇說明</h2>
+      <p>本報告的援助數據涵蓋範圍設定為2020至2026年，原因如下：第一，2020年是新冠疫情爆發年，亦是全球ODA趨勢出現明顯轉折的起點，以此作為分析起點具有結構性意義；第二，圖表中所引用的各項計畫——包括台灣ICDF計畫、Adaptation Fund計畫、MCC Compact及Plan Belize MTDS——均於2020至2026年間設計或啟動，資料集中度最高；第三，2022年為貝里斯統計局（SIB）最新人口普查年，以此作為人口基準錨點最為可靠。2020年以前的數據僅在必要時引用作為歷史對比，不納入主要分析年份。</p>
+      <p>人口數據說明：貝里斯統計局正式普查僅在2000年、2010年與2022年進行，下一輪預計至2032年。非普查年份的人口數值均為採用cohort-component方法的估算值，以出生率（15–17‰）、死亡率（5–6‰）及淨遷移率（年均約+2,000至3,000人）為參數推算（UN Population Division, 2024）。本報告所有人口欄位均明確標注普查值或估算值。</p>
+
+      <h2>二、貝里斯人口基準：普查與估算說明</h2>
+      <p>表一整理貝里斯人口普查年份與非普查年份估算數據：</p>
+
+      <h3>表一、貝里斯人口普查與估算數據（2010–2025）</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>年份</th>
+              <th>人口數（千人）</th>
+              <th>資料類型</th>
+              <th>來源與方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>2010</td><td>324.5</td><td>實際普查</td><td>貝里斯統計局（SIB）普查</td></tr>
+            <tr class="bg-amber-50/60"><td>2022</td><td>397.5</td><td>實際普查</td><td>SIB最新普查（2023年公布）；本報告人口基準</td></tr>
+            <tr><td>2023</td><td>419.1</td><td>Cohort-component估算</td><td>CIA World Factbook / SIB；出生率15–17‰、死亡率5–6‰、淨遷移+2,000–3,000人/年</td></tr>
+            <tr><td>2024</td><td>~420</td><td>UN投影模型</td><td>世界銀行 / UN Population Division 推算</td></tr>
+            <tr><td>2025</td><td>422.9</td><td>UN投影模型</td><td>UN Population Prospects 2024；年成長率1.4%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">資料來源：Statistical Institute of Belize（SIB, 2022）；CIA World Factbook（2024）；UN Population Prospects（2024）。黃底為實際普查年份；其餘為cohort-component估算值。</p>
+      <p>2022年普查確認貝里斯總人口為397,483人，較2010年的324,520人增加約22.7%，年均成長率約1.9%。2023至2025年的估算以此為基準推算。</p>
+
+      <h2>三、ODA受援數據概況（2020–2025）</h2>
+      <p>根據OECD DAC及世界銀行統計，貝里斯近年淨ODA接收總額約為3,000至4,000萬美元（2023年不變價），2024年估算達4,126萬美元，較前年成長約29%（OECD, 2025a；Trading Economics / World Bank, 2026）。表二呈現2020至2025年主要數據：</p>
+
+      <h3>表二、貝里斯淨ODA受援統計（2020–2025）</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>年份</th>
+              <th>淨ODA總額（百萬美元）</th>
+              <th>人均ODA（美元）</th>
+              <th>人口（千人）</th>
+              <th>備註</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>2020</td><td>─</td><td>~75（估）</td><td>~404（估）</td><td>新冠疫情年；OECD數據暫缺</td></tr>
+            <tr><td>2021</td><td>─</td><td>~80（估）</td><td>~407（估）</td><td>Cohort-component估算</td></tr>
+            <tr class="bg-amber-50/60"><td>2022</td><td>~32</td><td>─</td><td>397.5（普查）</td><td>SIB普查年；2023年不變價</td></tr>
+            <tr><td>2023</td><td>31.87</td><td>─</td><td>419.1（估）</td><td>OECD DAC初步數據；CIA/SIB估算</td></tr>
+            <tr><td>2024</td><td>41.26</td><td>~80–100</td><td>~420（估）</td><td>初步估算；較前年↑29%；IDA計畫承諾推升</td></tr>
+            <tr><td>2025</td><td>─（預計2027年發布）</td><td>─</td><td>422.9（估）</td><td>大型計畫陸續撥付；全球ODA緊縮年</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">資料來源：OECD DAC2A（2025）；Trading Economics / World Bank（2026）；SIB（2022）；CIA World Factbook（2024）；UN Population Prospects（2024）。人口欄：「普查」為SIB實際調查值，「估」為cohort-component推算值。ODA總額以2023年不變價計算；2025年ODA數字預計2027年由OECD發布。</p>
+      <p>註：非普查年份估算值可能高於普查值，反映普查對非法移民及偏遠地區的系統性低報現象（census undercount）。</p>
+      <p>援助約占貝里斯GDP（2022年約31.6億美元）的1至2%。2022年SIB普查確認的397,483人是最可靠的人口基準，人均ODA的精確計算需待OECD完整數據發布。</p>
+
+      <h2>四、主要援助來源：捐助方結構分析（2020–2026）</h2>
+      <p>表三整理各主要援助方的規模與性質，以2020至2026年間的近期數據為主。特別值得注意的是，2025年4月美國宣布全面暫停外援審查，MCC Compact一度面臨暫緩風險，經貝里斯政府積極爭取，於2025年8月確認保留（Amandala, 2025）：</p>
+
+      <h3>表三、貝里斯主要援助來源（2020–2026年間）</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>援助方</th>
+              <th>類型</th>
+              <th>近年援助規模</th>
+              <th>說明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-amber-50/60">
+              <td>美國 MCC</td>
+              <td>贈款（類ODA）</td>
+              <td>1.25億美元（2024簽署，暫緩）</td>
+              <td>Belize Compact：教育（80%）與能源（20%）；另加貝里斯政府配套4,060萬美元；2025年4月美國外援審查一度暫緩，8月確認保留</td>
+            </tr>
+            <tr class="bg-emerald-50/60">
+              <td>台灣 ICDF</td>
+              <td>非DAC雙邊</td>
+              <td>5年計畫含貸款1.05億；2023年教育補助300萬</td>
+              <td>涵蓋農業、教育、勞動力就業、寬頻、醫療影像、婦女賦權等；完全未納入OECD DAC統計</td>
+            </tr>
+            <tr><td>世界銀行集團</td><td>多邊</td><td>整體投資約1.5億美元</td><td>含IBRD貸款與2024年起IDA優惠融資（7,700萬額度）</td></tr>
+            <tr><td>Adaptation Fund</td><td>多邊氣候基金</td><td>2,314萬美元</td><td>氣候韌性住房與關鍵基礎設施；聯合國氣候公約下的多邊氣候融資機制</td></tr>
+            <tr><td>美洲開發銀行（IDB）</td><td>多邊</td><td>1,000萬美元（2023年）</td><td>Sustainable and Inclusive Belize；北部市政永續發展（Sustainable and Inclusive Urban Development，106萬）</td></tr>
+            <tr><td>多邊/貝里斯政府</td><td>多邊</td><td>1,250萬美元</td><td>Belize Fund for a Sustainable Future（BFSF）：海洋經濟、生物多樣性、生態保護、海岸發展</td></tr>
+            <tr><td>WTO漁業補貼基金</td><td>多邊</td><td>未公開</td><td>BLUE-CAP計畫：漁業社區、堡礁生態保護</td></tr>
+            <tr><td>歐盟</td><td>多邊/雙邊</td><td>2022年約374萬美元（EC雙邊）</td><td>歷史高峰2014年達1,849萬；以技術援助與政策支持為主</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">資料來源：MCC（2024）；CEIC / World Bank WDI（2026）；World Bank（2025a）；MOFA Taiwan（2025）；Adaptation Fund（2024）；IDB（n.d.）。MCC Compact為美國獨立發展機構提供，性質接近ODA但獨立統計，未納入OECD DAC總量。台灣ICDF援助亦未納入DAC統計。</p>
+      <p>2024年9月簽署的MCC Belize Compact（1.25億美元）是貝里斯有史以來最大單筆雙邊援助計畫。台灣ICDF的5年計畫總額達1.05億美元，涵蓋農業、教育、勞動力就業、通訊基礎設施、醫療影像與婦女賦權等多元領域。兩者合計超過2.3億美元，卻均缺席於OECD DAC官方統計，造成貝里斯受援規模的系統性低估。</p>
+
+      <h2>五、2022–2026年重點援助計畫</h2>
+      <p>表四整合2022至2026年間貝里斯所有主要援助計畫，以顏色區分援助來源：黃底為MCC計畫、綠底為台灣ICDF計畫、白底及灰底為多邊機構計畫：</p>
+      <p class="text-sm text-beige-500">
+        <span class="mr-4 inline-flex items-center gap-1.5"><span class="inline-block h-3 w-3 rounded-sm bg-amber-100 ring-1 ring-amber-200"></span>美國 MCC</span>
+        <span class="mr-4 inline-flex items-center gap-1.5"><span class="inline-block h-3 w-3 rounded-sm bg-emerald-100 ring-1 ring-emerald-200"></span>台灣 ICDF</span>
+        <span class="inline-flex items-center gap-1.5"><span class="inline-block h-3 w-3 rounded-sm bg-beige-100 ring-1 ring-beige-200"></span>多邊機構</span>
+      </p>
+
+      <h3>表四、貝里斯重點援助計畫彙整（2022–2026）</h3>
+      <div class="table-wrap">
+        <table class="min-w-[800px]">
+          <thead>
+            <tr>
+              <th>計畫名稱</th>
+              <th>援助方</th>
+              <th>金額（百萬美元）</th>
+              <th>年份</th>
+              <th>主要領域</th>
+            </tr>
+          </thead>
+          <tbody>
+            {aidPrograms.map((p) => (
+              <tr class={rowClass(p.type)}>
+                <td class="font-medium text-beige-900">{p.name}</td>
+                <td>{p.donor}</td>
+                <td>{p.amount}</td>
+                <td class="whitespace-nowrap">{p.year}</td>
+                <td>{p.field}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">資料來源：MCC（2024）；World Bank（2025a, 2025b, 2025c, 2025d）；Government of Belize Press Office（2025）；MOFA Taiwan（2025）；Adaptation Fund（2024）；IDB（n.d.）；WTO（n.d.）；UNDP（n.d.）。金額為計畫批准或承諾總額，非單一年度撥付金額。台灣ICDF部分計畫金額未公開。MCC Compact標注「暫緩」係指2025年美國外援審查期間，2025年8月已確認保留。</p>
+      <p>從表四可見，2022至2026年間貝里斯所獲承諾的援助計畫規模前所未有。若合計金額已知的計畫：MCC（1.25億）、Adaptation Fund（2,314萬）、BFSF（1,250萬）、世界銀行IDA額度（7,700萬）、Blue Cities（3,220萬）、能源計畫（5,840萬）、Cat-DDO（2,000萬）、台灣5年計畫（1.05億），總承諾額已逾5億美元，尚不計未公開金額的台灣醫療影像、婦女賦權、寬頻及WTO BLUE-CAP、UNDP框架計畫。值得特別指出的是，台灣ICDF與MCC兩大來源合計超過2.3億美元，卻均未納入OECD DAC統計，凸顯官方數字的嚴重低估。</p>
+
+      <h2>六、全球ODA趨勢與對貝里斯的影響（2020–2026）</h2>
+      <p>表五對照同一時間框架的全球DAC ODA走向：</p>
+
+      <h3>表五、全球ODA趨勢與貝里斯對照（2020–2026）</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>年份</th>
+              <th>全球DAC ODA（十億美元）</th>
+              <th>年增率</th>
+              <th>對貝里斯的意義</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>2020</td><td>161.2</td><td>↑7.0%</td><td>新冠疫情驅動人道援助增加；貝里斯旅遊業重創</td></tr>
+            <tr><td>2021</td><td>185.9</td><td>↑15.3%</td><td>疫後重建援助高峰</td></tr>
+            <tr><td>2022</td><td>204.0</td><td>↑9.7%</td><td>烏克蘭援助大幅拉升全球總量；SIB普查年</td></tr>
+            <tr><td>2023</td><td>223.3</td><td>↑1.8%（歷史新高）</td><td>貝里斯ODA達31.87百萬（近年新高）</td></tr>
+            <tr><td>2024</td><td>214.6</td><td>↓6.0%</td><td>IDA資格取得；MCC Compact簽署；貝里斯估算↑29%</td></tr>
+            <tr><td>2025</td><td>174.3</td><td>↓23.1%（史上最大）</td><td>美國外援審查一度暫緩MCC；8月確認保留</td></tr>
+            <tr><td>2026（預測）</td><td>—</td><td>↓5.8%（OECD估）</td><td>持續下滑；全球緊縮恐影響新計畫融資</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">資料來源：OECD（2025a, 2025b）；2026年為OECD預測值。</p>
+      <p>全球ODA在2020至2023年間持續增長，主因為疫情援助與烏克蘭戰爭的特殊需求，2023年達歷史新高2,233億美元。2024年起轉向下滑，2025年出現史上最大單年跌幅（↓23.1%），2026年預測再跌5.8%（OECD, 2025b）。貝里斯短期內因已批准計畫的撥付緩衝，以及MCC Compact最終確認保留，受衝擊程度相對有限。</p>
+
+      <h2>七、結構性分析</h2>
+      <h3>（一）援助領域高度集中於氣候韌性與藍色經濟</h3>
+      <p>2022至2026年批准計畫中，Adaptation Fund氣候韌性住房、Cat-DDO氣候備援、Blue Cities藍色經濟、BFSF海洋生態、BLUE-CAP漁業保護，以及MCC再生能源，均指向氣候與環境領域。貝里斯在小島嶼開發中國家中災難風險排名第三（World Bank, 2025c），氣候脆弱性是援助機構優先加碼的核心原因。</p>
+
+      <h3>（二）2024年雙重制度突破：IDA會員資格與MCC Compact</h3>
+      <p>IDA會員資格使貝里斯得以享有年利率0.75%、還款期30年的優惠融資（World Bank, 2025b）；MCC Compact則以全額贈款形式提供1.25億美元，貝里斯無需承擔債務。兩項制度突破均發生於2024年，大幅降低貝里斯的融資成本並擴大援助規模。</p>
+
+      <h3>（三）台灣援助：最廣泛卻最隱形的援助來源</h3>
+      <p>台灣ICDF在2022至2026年間的已知計畫涵蓋寬頻基礎設施、醫療影像、勞動力就業、婦女賦權四大項目，加上5年框架計畫（含貸款）的1.05億美元，領域廣泛度在所有援助方中排名第一。然而這些援助完全未納入OECD DAC統計體系（MOFA Taiwan, 2025），是貝里斯援助分析中最大的「隱形缺口」。</p>
+
+      <h2>八、小結</h2>
+      <p>本報告以2020至2026年作為統一分析框架。主要發現如下：其一，OECD官方ODA數字嚴重低估貝里斯的實際受援規模——台灣ICDF與美國MCC兩大未計入來源合計超過2.3億美元；其二，2024年IDA會員資格與MCC Compact簽署是雙重制度性突破，惟MCC計畫於2025年一度面臨美國外援審查風險，8月確認保留；其三，2022至2026年援助計畫規模空前，已知總承諾額逾5億美元；其四，非普查年份的人口估算使人均ODA帶有統計誤差，解讀時應以ODA總量趨勢為主。面對2025至2026年全球ODA系統性緊縮，貝里斯短期有撥付緩衝，中長期仍須強化財政自主。</p>
+
+      <h2>參考資料</h2>
+      <ul class="refs list-none pl-0">
+        <li>Adaptation Fund. (2024). Climate-Resilient Housing and Infrastructure in Belize. https://www.adaptation-fund.org/project/strengthening-disaster-preparedness-and-climate-resilient-housing-in-belize/</li>
+        <li>Amandala. (2025, August 20). Belize will get its MCC grant! https://amandala.com.bz/news/belize-will-get-its-mcc-grant/</li>
+        <li>CIA World Factbook. (2024). Belize. Central Intelligence Agency. https://www.cia.gov/the-world-factbook/countries/belize/</li>
+        <li>CEIC / World Bank WDI. (2026). Belize: Net bilateral aid flows from DAC donors – European Commission. https://www.ceicdata.com/en/belize/defense-and-official-development-assistance/bz-net-bilateral-aid-flows-from-development-assistance-committee-donors-european-commission</li>
+        <li>Government of Belize Press Office. (2025). World Bank approves "Belize Blue Cities and Beyond" project. https://www.pressoffice.gov.bz/world-bank-approves-belize-blue-cities-and-beyond-project/</li>
+        <li>IDB. (n.d.). Sustainable and Inclusive Belize (BL-L1041). Inter-American Development Bank. https://www.iadb.org/en/project/BL-L1041</li>
+        <li>MCC. (2024). Belize Compact. Millennium Challenge Corporation. https://www.mcc.gov/where-we-work/program/belize-compact/</li>
+        <li>MOFA Taiwan. (2025). Official development assistance. Ministry of Foreign Affairs, Republic of China (Taiwan). https://en.mofa.gov.tw/cp.aspx?n=1579</li>
+        <li>OECD. (2025a). Official development assistance (ODA). https://www.oecd.org/en/topics/policy-issues/official-development-assistance-oda.html</li>
+        <li>OECD. (2025b). Final OECD statistics on official development assistance (ODA) and other resource flows to developing countries in 2024. https://www.oecd.org/en/data/insights/data-explainers/2025/12/final-oecd-statistics-on-oda-and-other-development-finance-flows-in-2024-key-figures-and-trends.html</li>
+        <li>Statistical Institute of Belize (SIB). (2022). Population and housing census 2022. https://www.sib.org.bz/census/</li>
+        <li>Trading Economics / World Bank. (2026). Belize – Net ODA received per capita (current US$). https://tradingeconomics.com/belize/net-oda-received-per-capita-us-dollar-wb-data.html</li>
+        <li>UN Population Division. (2024). World population prospects 2024. United Nations. https://population.un.org/wpp/</li>
+        <li>UNDP. (n.d.). Plan Belize Medium Term Development Strategy 2022–2026. United Nations Development Programme. https://www.undp.org/belize</li>
+        <li>World Bank. (2025a). Belize: Country overview. https://www.worldbank.org/en/country/belize/overview</li>
+        <li>World Bank. (2025b). 5 ways Belize benefits from new IDA financing. https://www.worldbank.org/en/news/feature/2025/07/23/5-ways-belize-benefits-from-new-ida-financing</li>
+        <li>World Bank. (2025c). Belize bolsters climate and disaster resilience with the World Bank's support. https://www.worldbank.org/en/news/press-release/2025/07/29/belize-bolsters-climate-and-disaster-resilience-with-the-world-bank-s-support</li>
+        <li>World Bank. (2025d). Belize launches new energy project to enhance power reliability and boost renewables. https://www.worldbank.org/en/news/press-release/2025/02/04/belize-launches-new-energy-project-to-enhance-power-reliability-and-boost-renewables</li>
+        <li>WTO. (n.d.). BLUE-CAP: Supporting coastal fishing communities and reef ecosystem protection in Belize. World Trade Organization Fisheries Subsidies Fund. https://www.wto.org/</li>
+      </ul>
+    </div>
+  </article>
+</Layout>
